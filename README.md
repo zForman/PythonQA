@@ -1,2 +1,4 @@
 # PythonQA
-python qa
+python q
+
+initial project version
