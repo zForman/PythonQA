@@ -38,8 +38,9 @@ def merge_json_and_csv(books, users):
                     }
                 ]}
             merged_data.append(template)
-        with open('merged_file.json', 'w') as f:
-            f.write(json.dumps(merged_data, indent=4))
+
+    with open('merged_file.json', 'w') as f:
+        f.write(json.dumps(merged_data, indent=4))
 
 
 merge_json_and_csv('books.csv', 'users.json')
