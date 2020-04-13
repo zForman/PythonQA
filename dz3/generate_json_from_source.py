@@ -3,6 +3,9 @@ import json
 
 
 def merge_json_and_csv(books, users):
+    merged_data = []
+    books_dict = []
+
     if books.endswith('.csv'):
         books = books
     else:
@@ -12,9 +15,6 @@ def merge_json_and_csv(books, users):
         users = users
     else:
         raise Exception('choose a file in json format')
-
-    merged_data = []
-    books_dict = []
 
     with open(books, 'r') as csv__book_file:
         book_list = csv.reader(csv__book_file)
@@ -26,13 +26,20 @@ def merge_json_and_csv(books, users):
         users_list = json.loads(file_users_json.read())
         i = 0
         for user in users_list:
-            if not user['isActive']:
-                user['isActive'] = True
             i += 1
-            user['books'] = books_dict[i]
-            merged_data.append(user)
-            with open('merged_file.json', 'w') as f:
-                f.write(json.dumps(merged_data, indent=4))
+            template = {
+                'name': user['name'],
+                'gender': user['gender'],
+                'address': user['address'],
+                'books': [{
+                        'title': books_dict[i]['Title'],
+                        'author': books_dict[i]['Author'],
+                        'height': books_dict[i]['Height']
+                    }
+                ]}
+            merged_data.append(template)
+        with open('merged_file.json', 'w') as f:
+            f.write(json.dumps(merged_data, indent=4))
 
 
 merge_json_and_csv('books.csv', 'users.json')
