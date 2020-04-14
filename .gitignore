@@ -1,3 +1,6 @@
 *.log
 .DS_Store
 .pytest_cache/
+internal_tasks/
+lesson_*/
+.idea
